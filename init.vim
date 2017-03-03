@@ -47,3 +47,14 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
+
+" Set window size
+if has("gui_running")
+  set lines=38 columns=110
+endif
+
+" Set default working folder
+cd ~/Code
+
+" Disable VimFiler window on start up
+let g:spacevim_enable_vimfiler_welcome = 0
