@@ -58,3 +58,6 @@ cd ~/Code
 
 " Disable VimFiler window on start up
 let g:spacevim_enable_vimfiler_welcome = 0
+
+" Enable rails auto complete
+let g:rubycomplete_rails = 1
