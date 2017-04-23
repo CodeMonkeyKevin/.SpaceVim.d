@@ -61,3 +61,7 @@ let g:spacevim_enable_vimfiler_welcome = 0
 
 " Enable rails auto complete
 let g:rubycomplete_rails = 1
+
+" Change leader to ,
+let mapleader = ","
+
