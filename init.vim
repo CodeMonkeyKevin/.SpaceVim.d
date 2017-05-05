@@ -2,7 +2,7 @@
 let g:spacevim_enable_guicolors = 0
 
 " Chane GuiFonts
-set guifont=Source\ Code\ Pro\ for\ Powerline:h16
+set guifont=Hack:h16
 
 " add custom plugins.
 let g:spacevim_custom_plugins = [
@@ -12,7 +12,9 @@ let g:spacevim_custom_plugins = [
  \ ]
 
 " Set Color
-let g:spacevim_colorscheme = "codeschool"
+set background=dark
+let g:one_allow_italics = 1
+let g:spacevim_colorscheme = "one"
 
 " Highlight/Underline trailing whitespace
 autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198 cterm=underline
@@ -50,7 +52,7 @@ let g:go_list_type = "quickfix"
 
 " Set window size
 if has("gui_running")
-  set lines=38 columns=110
+  set lines=40 columns=110
 endif
 
 " Set default working folder
