@@ -2,7 +2,7 @@
 let g:spacevim_enable_guicolors = 0
 
 " Chane GuiFonts
-set guifont=Hack:h16
+set guifont=Hack:h15
 
 " add custom plugins.
 let g:spacevim_custom_plugins = [
@@ -52,7 +52,7 @@ let g:go_list_type = "quickfix"
 
 " Set window size
 if has("gui_running")
-  set lines=40 columns=110
+  set lines=45 columns=200
 endif
 
 " Set default working folder
