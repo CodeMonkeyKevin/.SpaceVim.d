@@ -67,3 +67,5 @@ let g:rubycomplete_rails = 1
 " Change leader to ,
 let mapleader = ","
 
+" Vim Airline theme
+let g:airline_theme='one'
