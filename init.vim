@@ -69,3 +69,14 @@ let mapleader = ","
 
 " Vim Airline theme
 let g:airline_theme='one'
+
+" Indentation guides
+set listchars=tab:\¦\ 
+set list
+
+" SpecialKey highlight
+autocmd ColorScheme * hi SpecialKey term=bold ctermfg=16 guifg=#09AA08
+
+" ChooseWin plugin setting
+nmap  -  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
