@@ -1,8 +1,12 @@
-" Disable True Colors
-let g:spacevim_enable_guicolors = 0
+" Disable True Colors in Terminal
+if has("gui_running")
+  let g:spacevim_enable_guicolors = 1
+else
+  let g:spacevim_enable_guicolors = 0
+endif
 
 " Chane GuiFonts
-set guifont=Hack:h15
+set guifont=Hack:h16
 
 " add custom plugins.
 let g:spacevim_custom_plugins = [
@@ -11,10 +15,10 @@ let g:spacevim_custom_plugins = [
  \ ['vim-syntastic/syntastic', {'merged': 0}],
  \ ]
 
-" Set Color
+" Set ColorScheme
 set background=dark
 let g:one_allow_italics = 1
-let g:spacevim_colorscheme = "one"
+let g:spacevim_colorscheme = "neodark"
 
 " Highlight/Underline trailing whitespace
 autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198 cterm=underline
@@ -68,7 +72,7 @@ let g:rubycomplete_rails = 1
 let mapleader = ","
 
 " Vim Airline theme
-let g:airline_theme='one'
+"let g:airline_theme='one'
 
 " Indentation guides
 set listchars=tab:\¦\ 
@@ -80,3 +84,4 @@ autocmd ColorScheme * hi SpecialKey term=bold ctermfg=16 guifg=#09AA08
 " ChooseWin plugin setting
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
+
