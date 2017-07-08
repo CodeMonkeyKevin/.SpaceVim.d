@@ -1,10 +1,13 @@
-" Chane GuiFonts
-set guifont=Hack:h16
+if (has("termguicolors"))
+  set termguicolors
+endif
 
-call SpaceVim#layers#load('lang#go')
+" Chane GuiFonts
+set guifont=SauceCodePro\ Nerd\ Font:h16
 
 " loaded ui layer
 call SpaceVim#layers#load('ui')
+call SpaceVim#layers#load('lang#go')
 
 " Highlight/Underline trailing whitespace
 autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198 cterm=underline
@@ -50,8 +53,8 @@ let g:spacevim_custom_plugins = [
  \ ['flazz/vim-colorschemes'],
  \ ['ntpeters/vim-better-whitespace', {'merged': 0}],
  \ ['vim-syntastic/syntastic', {'merged': 0}],
+ \ ['ryanoasis/vim-devicons'],
  \ ]
-
 
 let g:spacevim_colorscheme_bg = 'dark'
 let g:one_allow_italics = 1
@@ -71,6 +74,7 @@ let mapleader = ","
 
 " Vim Airline theme
 let g:airline_theme='one'
+let g:airline_powerline_fonts = 1
 
 " Indentation guides
 set listchars=tab:\¦\ 
@@ -84,3 +88,13 @@ nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 set transparency=3
+
+let g:deoplete#auto_complete_delay = 150
+let g:spacevim_enable_tabline_filetype_icon = 1
+let g:spacevim_enable_os_fileformat_icon = 1
+
+let g:ctrlp_working_path_mode = 'ra'
+
+set shell=/bin/bash
+
+let g:webdevicons_enable_vimfiler = 1
