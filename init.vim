@@ -60,7 +60,7 @@ let g:spacevim_custom_plugins = [
 
 let g:spacevim_colorscheme_bg = 'dark'
 let g:one_allow_italics = 1
-let g:spacevim_colorscheme = "one"
+let g:spacevim_colorscheme = "onedark"
 
 " Set default working folder
 cd ~/Code
@@ -89,8 +89,6 @@ autocmd ColorScheme * hi SpecialKey term=bold ctermfg=16 guifg=#09AA08
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
-set transparency=3
-
 let g:deoplete#auto_complete_delay = 150
 let g:spacevim_enable_tabline_filetype_icon = 1
 let g:spacevim_enable_os_fileformat_icon = 1
@@ -100,3 +98,11 @@ let g:ctrlp_working_path_mode = 'ra'
 set shell=/bin/bash
 
 let g:webdevicons_enable_vimfiler = 1
+
+if $TERM_PROGRAM == 'Apple_Terminal'
+  let g:spacevim_enable_guicolors = 0
+endif
+
+" Close a buffer without closing the window
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>.
+
