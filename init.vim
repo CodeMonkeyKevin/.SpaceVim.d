@@ -4,7 +4,10 @@ endif
 
 " Chane GuiFonts
 " set guifont=SauceCodePro\ Nerd\ Font:h16
-let g:spacevim_guifont = 'SauceCodePro\ Nerd\ Font:h16'
+
+if !has("gui_vimr")
+  let g:spacevim_guifont = 'SauceCodePro\ Nerd\ Font:h16'
+endif
 
 " loaded ui layer
 call SpaceVim#layers#load('ui')
@@ -61,6 +64,9 @@ let g:spacevim_custom_plugins = [
 let g:spacevim_colorscheme_bg = 'dark'
 let g:one_allow_italics = 1
 let g:spacevim_colorscheme = "onedark"
+if has("gui_macvim")
+    let g:spacevim_colorscheme = "one"
+endif
 
 " Set default working folder
 cd ~/Code
@@ -104,5 +110,5 @@ if $TERM_PROGRAM == 'Apple_Terminal'
 endif
 
 " Close a buffer without closing the window
-map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>.
+" map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>.
 
