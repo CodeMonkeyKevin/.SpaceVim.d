@@ -1,9 +1,10 @@
-if (has("termguicolors"))
+if has("termguicolors")
   set termguicolors
 endif
 
 " Chane GuiFonts
-set guifont=SauceCodePro\ Nerd\ Font:h16
+" set guifont=SauceCodePro\ Nerd\ Font:h16
+let g:spacevim_guifont = 'SauceCodePro\ Nerd\ Font:h16'
 
 " loaded ui layer
 call SpaceVim#layers#load('ui')
@@ -46,6 +47,7 @@ let g:go_list_type = "quickfix"
 " Set window size
 if has("gui_running")
   set lines=45 columns=200
+  set transparency=3
 endif
 
 " add custom plugins.
