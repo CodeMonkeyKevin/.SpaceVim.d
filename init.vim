@@ -1,17 +1,53 @@
+set encoding=utf8
+
+" Set Truecolors
 if has("termguicolors")
   set termguicolors
 endif
 
+if (empty($TMUX))
+  if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
 " Chane GuiFonts
-" set guifont=SauceCodePro\ Nerd\ Font:h16
+if has("gui_running")
+  set macligatures
+endif
 
 if !has("gui_vimr")
-  let g:spacevim_guifont = 'SauceCodePro\ Nerd\ Font:h16'
+  let g:spacevim_guifont = 'Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete:h16'
 endif
+
+" Set window size
+if has("gui_running")
+  set lines=45 columns=200
+  set transparency=2
+endif
+
+" add custom plugins.
+let g:spacevim_custom_plugins = [
+ \ ['ntpeters/vim-better-whitespace', {'merged': 0}],
+ \ ['vim-syntastic/syntastic', {'merged': 0}],
+ \ ['Yggdroot/indentLine', {'merged': 0}],
+ \ ['dracula/vim', {'merged': 0}],
+ \ ]
 
 " loaded ui layer
 call SpaceVim#layers#load('ui')
 call SpaceVim#layers#load('lang#go')
+
+" Colorscheme
+let g:spacevim_colorscheme = "dracula"
+let g:spacevim_colorscheme_bg = 'dark'
 
 " Highlight/Underline trailing whitespace
 autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198 cterm=underline
@@ -21,12 +57,15 @@ let g:strip_whitespace_on_save = 1
 
 " Enable Syntax checking
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'ruby', 'javascript'] }
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_scss_checkers = ['compass']
 
+" Statusline config
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" syntastic config
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -47,27 +86,6 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 
-" Set window size
-if has("gui_running")
-  set lines=45 columns=200
-  set transparency=3
-endif
-
-" add custom plugins.
-let g:spacevim_custom_plugins = [
- \ ['flazz/vim-colorschemes'],
- \ ['ntpeters/vim-better-whitespace', {'merged': 0}],
- \ ['vim-syntastic/syntastic', {'merged': 0}],
- \ ['ryanoasis/vim-devicons'],
- \ ]
-
-let g:spacevim_colorscheme_bg = 'dark'
-let g:one_allow_italics = 1
-let g:spacevim_colorscheme = "onedark"
-if has("gui_macvim")
-    let g:spacevim_colorscheme = "one"
-endif
-
 " Set default working folder
 cd ~/Code
 
@@ -80,16 +98,8 @@ let g:rubycomplete_rails = 1
 " Change leader to ,
 let mapleader = ","
 
-" Vim Airline theme
-let g:airline_theme='one'
-let g:airline_powerline_fonts = 1
-
-" Indentation guides
-set listchars=tab:\¦\ 
-set list
-
 " SpecialKey highlight
-autocmd ColorScheme * hi SpecialKey term=bold ctermfg=16 guifg=#09AA08
+" autocmd ColorScheme * hi SpecialKey term=bold ctermfg=16 guifg=#09AA08
 
 " ChooseWin plugin setting
 nmap  -  <Plug>(choosewin)
@@ -106,9 +116,27 @@ set shell=/bin/bash
 let g:webdevicons_enable_vimfiler = 1
 
 if $TERM_PROGRAM == 'Apple_Terminal'
-  let g:spacevim_enable_guicolors = 0
+  let g:spacevim_enable_guicolors = 1
 endif
 
 " Close a buffer without closing the window
 " map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>.
 
+let g:spacevim_statusline_unicode_symbols = 1
+let g:spacevim_windows_index_type = 3
+let g:spacevim_buffer_index_type = 4
+
+let g:syntastic_eruby_ruby_quiet_messages =
+    \ {'regex': 'possibly useless use of a variable in void context'}
+
+" add jbuilder syntax highlighting
+au BufNewFile,BufRead *.json.jbuilder set ft=ruby
+
+let g:indent_guides_enable_on_vim_startup = 1
+
+" Softwrap
+set wrap linebreak nolist
+
+" Indentation guides on tabs
+set list lcs=tab:\┆\ 
+set list
