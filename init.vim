@@ -24,13 +24,13 @@ if has("gui_running")
 endif
 
 if !has("gui_vimr")
-  let g:spacevim_guifont = 'Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete:h16'
+  let g:spacevim_guifont = 'Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h16'
 endif
 
 " Set window size
 if has("gui_running")
-  set lines=45 columns=200
-  set transparency=2
+  set lines=45 columns=180
+  set transparency=3
 endif
 
 " add custom plugins.
@@ -38,7 +38,7 @@ let g:spacevim_custom_plugins = [
  \ ['ntpeters/vim-better-whitespace', {'merged': 0}],
  \ ['vim-syntastic/syntastic', {'merged': 0}],
  \ ['Yggdroot/indentLine', {'merged': 0}],
- \ ['dracula/vim', {'merged': 0}],
+ \ ['dracula/vim', {'merged': 0}]
  \ ]
 
 " loaded ui layer
@@ -48,6 +48,10 @@ call SpaceVim#layers#load('lang#go')
 " Colorscheme
 let g:spacevim_colorscheme = "dracula"
 let g:spacevim_colorscheme_bg = 'dark'
+hi Comment cterm=italic
+
+call SpaceVim#layers#disable('core#statusline')
+call SpaceVim#layers#disable('core#tabline')
 
 " Highlight/Underline trailing whitespace
 autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198 cterm=underline
@@ -60,10 +64,21 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'ruby
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_scss_checkers = ['compass']
 
-" Statusline config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+
+" Airline {{{
+
+set noshowmode
+
+let g:airline_powerline_fonts=1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#hunks#non_zero_only = 1
+
+ "let g:airline#extensions#tabline#enabled = 2
+ "let g:airline#extensions#tabline#fnamemod = ':t'
+ "let g:airline#extensions#tabline#buffer_min_count = 1
+
+" }}}
 
 " syntastic config
 let g:syntastic_always_populate_loc_list = 1
