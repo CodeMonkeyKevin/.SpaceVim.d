@@ -18,13 +18,14 @@ if (empty($TMUX))
   endif
 endif
 
-" Chane GuiFonts
-if has("gui_running")
-  set macligatures
-endif
+" Change GuiFonts
+" if has("gui_running")
+"   set macligatures
+" endif
 
 if !has("gui_vimr")
-  let g:spacevim_guifont = 'Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h16'
+  " let g:spacevim_guifont = 'Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h16'
+  let g:spacevim_guifont = 'Iosevka\ X\ Light\ Nerd\ Font\ Complete\ Mono:h16'
 endif
 
 " Set window size
@@ -38,20 +39,22 @@ let g:spacevim_custom_plugins = [
  \ ['ntpeters/vim-better-whitespace', {'merged': 0}],
  \ ['vim-syntastic/syntastic', {'merged': 0}],
  \ ['Yggdroot/indentLine', {'merged': 0}],
- \ ['dracula/vim', {'merged': 0}]
+ \ ['dracula/vim', {'merged': 0}],
+ \ ['ryanoasis/vim-devicons']
  \ ]
 
 " loaded ui layer
 call SpaceVim#layers#load('ui')
 call SpaceVim#layers#load('lang#go')
+call SpaceVim#layers#load('lang#ruby')
+call SpaceVim#layers#load('ctrlp')
+call SpaceVim#layers#disable('core#statusline')
+call SpaceVim#layers#disable('core#tabline')
 
 " Colorscheme
 let g:spacevim_colorscheme = "dracula"
 let g:spacevim_colorscheme_bg = 'dark'
 hi Comment cterm=italic
-
-call SpaceVim#layers#disable('core#statusline')
-call SpaceVim#layers#disable('core#tabline')
 
 " Highlight/Underline trailing whitespace
 autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198 cterm=underline
@@ -64,22 +67,6 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'ruby
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_scss_checkers = ['compass']
 
-
-" Airline {{{
-
-set noshowmode
-
-let g:airline_powerline_fonts=1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline#extensions#hunks#non_zero_only = 1
-
- "let g:airline#extensions#tabline#enabled = 2
- "let g:airline#extensions#tabline#fnamemod = ':t'
- "let g:airline#extensions#tabline#buffer_min_count = 1
-
-" }}}
-
 " syntastic config
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -90,6 +77,20 @@ let g:syntastic_check_on_wq = 0
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
+
+" Ag for fast file search
+if executable('ag')
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command =
+    \ 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+else
+  " Fall back to using git ls-files if Ag is not available
+  let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
+endif
 
 " Vim-Go Settings
 let g:go_highlight_functions = 1
@@ -121,14 +122,16 @@ nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 let g:deoplete#auto_complete_delay = 150
+
+let g:webdevicons_enable = 1
 let g:spacevim_enable_tabline_filetype_icon = 1
 let g:spacevim_enable_os_fileformat_icon = 1
+let g:webdevicons_enable_vimfiler = 1
+let g:webdevicons_enable_airline_statusline = 1
 
 let g:ctrlp_working_path_mode = 'ra'
 
 set shell=/bin/bash
-
-let g:webdevicons_enable_vimfiler = 1
 
 if $TERM_PROGRAM == 'Apple_Terminal'
   let g:spacevim_enable_guicolors = 1
