@@ -23,10 +23,8 @@ endif
 "   set macligatures
 " endif
 
-if !has("gui_vimr")
   " let g:spacevim_guifont = 'Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h16'
-  let g:spacevim_guifont = 'Iosevka\ X\ Light\ Nerd\ Font\ Complete\ Mono:h16'
-endif
+set guifont=Iosevka_X_Nerd_Font_Complete_Mono:h16
 
 " Set window size
 if has("gui_running")
@@ -40,7 +38,10 @@ let g:spacevim_custom_plugins = [
  \ ['vim-syntastic/syntastic', {'merged': 0}],
  \ ['Yggdroot/indentLine', {'merged': 0}],
  \ ['dracula/vim', {'merged': 0}],
- \ ['ryanoasis/vim-devicons']
+ \ ['ryanoasis/vim-devicons'],
+ \ ['direnv/direnv.vim'],
+ \ ['godlygeek/tabular'],
+ \ ['srcery-colors/srcery-vim']
  \ ]
 
 " loaded ui layer
@@ -52,8 +53,10 @@ call SpaceVim#layers#disable('core#statusline')
 call SpaceVim#layers#disable('core#tabline')
 
 " Colorscheme
+" set t_Co=256
 let g:spacevim_colorscheme = "dracula"
 let g:spacevim_colorscheme_bg = 'dark'
+let g:srcery_italic = 1
 hi Comment cterm=italic
 
 " Highlight/Underline trailing whitespace
@@ -92,15 +95,42 @@ else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
 endif
 
-" Vim-Go Settings
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+" ==================== vim-go ====================
+" let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
+let g:go_fmt_options = {
+  \ 'goimports': '-local do/',
+  \ }
+
+let g:go_debug_windows = {
+      \ 'vars':  'leftabove 35vnew',
+      \ 'stack': 'botright 10new',
+\ }
+
+
+let g:go_sameid_search_enabled = 1
+
+let g:go_test_prepend_name = 1
 let g:go_list_type = "quickfix"
+
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+
+let g:go_def_mode = "guru"
+let g:go_echo_command_info = 1
+let g:go_gocode_autobuild = 1
+let g:go_gocode_unimported_packages = 1
+
+let g:go_autodetect_gopath = 1
+" let g:go_info_mode = "guru"
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
+let g:go_highlight_format_strings = 1
 
 " Set default working folder
 cd ~/Code
