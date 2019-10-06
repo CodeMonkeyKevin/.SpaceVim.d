@@ -41,23 +41,34 @@ let g:spacevim_custom_plugins = [
  \ ['ryanoasis/vim-devicons'],
  \ ['direnv/direnv.vim'],
  \ ['godlygeek/tabular'],
- \ ['srcery-colors/srcery-vim']
+ \ ['srcery-colors/srcery-vim'],
+ \ ['joshdick/onedark.vim'],
+ \ ['arcticicestudio/nord-vim']
  \ ]
 
 " loaded ui layer
 call SpaceVim#layers#load('ui')
 call SpaceVim#layers#load('lang#go')
 call SpaceVim#layers#load('lang#ruby')
+call SpaceVim#layers#load('lang#python')
 call SpaceVim#layers#load('ctrlp')
 call SpaceVim#layers#disable('core#statusline')
 call SpaceVim#layers#disable('core#tabline')
 
 " Colorscheme
 " set t_Co=256
-let g:spacevim_colorscheme = "dracula"
+let g:spacevim_colorscheme = "onedark"
 let g:spacevim_colorscheme_bg = 'dark'
-let g:srcery_italic = 1
+" let g:srcery_italic = 1
 hi Comment cterm=italic
+
+let g:onedark_terminal_italics = 1
+let g:nord_bold_vertical_split_line = 1
+let g:nord_italic_comments = 1
+let g:nord_underline = 1
+let g:nord_italic = 1
+let g:nord_cursor_line_number_background = 1
+let g:airline_theme = 'onedark'
 
 " Highlight/Underline trailing whitespace
 autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198 cterm=underline
@@ -66,7 +77,7 @@ autocmd ColorScheme * hi ExtraWhitespace guifg=#FF2626 gui=underline ctermfg=198
 let g:strip_whitespace_on_save = 1
 
 " Enable Syntax checking
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'ruby', 'javascript'] }
+let g:syntastic_mode_map = { 'mode': 'active', passive_filetypes': ['go', 'ruby', 'javascript', 'python'] }
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_scss_checkers = ['compass']
 
@@ -81,19 +92,6 @@ set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
 
-" Ag for fast file search
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command =
-    \ 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-else
-  " Fall back to using git ls-files if Ag is not available
-  let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
-endif
 
 " ==================== vim-go ====================
 " let g:go_fmt_fail_silently = 1
@@ -188,3 +186,6 @@ set wrap linebreak nolist
 " Indentation guides on tabs
 set list lcs=tab:\┆\ 
 set list
+
+" Disable jedi-vim (randomly freeze)
+let g:jedi#completions_enabled = 0
